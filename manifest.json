@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "sleep-fast",
+  "name": "Sleep fast",
+  "version": "1.0.0",
+  "author": "n1",
+  "license": "MIT",
+  "description": "System menu that activates the highlighted entry after a release countdown. Hold Super+Esc to cycle, release to arm, press to cancel.",
+  "kinds": [
+    "menu",
+    "bar-widget"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "menu": "Menu.qml",
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Sleep fast",
+    "description": "System menu with release-countdown activation",
+    "category": "Compositor",
+    "allowMultiple": false
+  }
+}

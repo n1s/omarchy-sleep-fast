@@ -1,0 +1,40 @@
+#!/bin/bash
+# Super+Esc: first press opens the System menu, further presses move the
+# selection down through the entries (wraps around). On release, a countdown
+# starts (badge in the menu header); when it runs out, the highlighted entry
+# is activated. Pressing again cancels the countdown and keeps browsing.
+#
+# Lives next to the cloned menu plugin it drives. The keybindings in
+# ~/.config/hypr/bindings.lua call this file with "press" (repeating bind)
+# and "release" (release bind).
+#
+# Visibility is decided by the menu itself (cycleOrOpen / armIfOpen in the
+# plugin's Menu.qml), so there is no timestamp heuristic here: the menu
+# comes back up immediately after being closed or after a countdown fired.
+#
+# Configure via ~/.config/omarchy/shell.json:
+#   "idle": { "systemMenuCountdown": 3 }
+
+set -euo pipefail
+
+SHELL_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/omarchy/shell.json"
+COUNTDOWN=$(jq -r '.idle.systemMenuCountdown // 3' "$SHELL_CONFIG" 2>/dev/null) || COUNTDOWN=3
+case "$COUNTDOWN" in ''|*[!0-9]*) COUNTDOWN=3 ;; esac
+
+MODE="${1:-press}"
+
+case "$MODE" in
+  press)
+    # One IPC call: the menu cycles when visible, opens at the System route
+    # when not.
+    omarchy-shell -q shell call sleep-fast cycleOrOpen '{"menu":"system"}'
+    ;;
+  release)
+    # Arm the countdown; the menu ignores this when it is not visible.
+    omarchy-shell -q shell call sleep-fast armIfOpen "$COUNTDOWN"
+    ;;
+  *)
+    echo "usage: $0 [press|release]" >&2
+    exit 2
+    ;;
+esac
