@@ -15,6 +15,10 @@ Then finish setup:
 
        omarchy plugin disable omarchy.menu
 
+   Note: this also stops the `omarchy menu …` CLI verbs, which target the
+   stock menu by name. Your keybindings are unaffected. To re-read menu
+   data, use `omarchy-shell shell call sleep-fast refresh x`.
+
 2. Add the keybindings to `~/.config/hypr/bindings.lua`:
 
        hl.unbind("SUPER + ESCAPE")
