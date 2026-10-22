@@ -53,6 +53,27 @@ Countdown seconds live in `~/.config/omarchy/shell.json`:
 Set it to 1 for the impatient, 5 for the cautious. Changes apply on the
 next release.
 
+## Make it snappy (optional)
+
+The default helper is a bash script. A tiny C version ships in this repo:
+~2.5ms per key press instead of ~35ms. Build and install it:
+
+    make install
+
+Then point the two bindings from the install step at
+`omarchy-menu-cycle-fast` instead of `omarchy-menu-cycle`:
+
+    hl.unbind("SUPER + ESCAPE")
+    o.bind("SUPER + ESCAPE", "Sleep fast (cycle)",
+      "$HOME/.config/omarchy/plugins/sleep-fast/omarchy-menu-cycle-fast",
+      { repeating = true })
+    o.bind("SUPER + ESCAPE", "Sleep fast — arm countdown",
+      "$HOME/.config/omarchy/plugins/sleep-fast/omarchy-menu-cycle-fast release",
+      { release = true })
+
+Requires `gcc` and `make` (preinstalled on Omarchy). Without this step the
+bash helper keeps working everywhere.
+
 ## Remove
 
     omarchy plugin remove sleep-fast
