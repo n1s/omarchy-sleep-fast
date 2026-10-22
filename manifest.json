@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "sleep-fast",
   "name": "Sleep fast",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "n1",
   "license": "MIT",
   "description": "System menu that activates the highlighted entry after a release countdown. Hold Super+Esc to cycle, release to arm, press to cancel.",
