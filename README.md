@@ -9,6 +9,16 @@ own after a short countdown. No need to confirm or reach for the Enter key.
 
     omarchy plugin add https://github.com/YOURNAME/omarchy-sleep-fast.git --enable
 
+Pick a helper flavor — the keybindings below take one of two paths:
+
+- **Shell** — no build step, works everywhere. Needs `jq` (preinstalled).
+  Use `omarchy-menu-cycle` in the paths below.
+- **C binary** — ~2.5ms per key press instead of ~35ms. Needs `gcc` +
+  `make` (preinstalled on Omarchy). Build it, then use
+  `omarchy-menu-cycle-fast` in the paths below:
+
+      cd ~/.config/omarchy/plugins/sleep-fast && make install
+
 Then finish setup:
 
 1. Disable the stock menu:
@@ -28,6 +38,9 @@ Then finish setup:
        o.bind("SUPER + ESCAPE", "Sleep fast — arm countdown",
          "$HOME/.config/omarchy/plugins/sleep-fast/omarchy-menu-cycle release",
          { release = true })
+
+   C binary users: replace both `omarchy-menu-cycle` occurrences with
+   `omarchy-menu-cycle-fast`.
 
 3. Reload Hyprland (`hyprctl reload`) or log out and back in.
 
@@ -52,27 +65,6 @@ Countdown seconds live in `~/.config/omarchy/shell.json`:
 
 Set it to 1 for the impatient, 5 for the cautious. Changes apply on the
 next release.
-
-## Make it snappy (optional)
-
-The default helper is a bash script. A tiny C version ships in this repo:
-~2.5ms per key press instead of ~35ms. Build and install it:
-
-    make install
-
-Then point the two bindings from the install step at
-`omarchy-menu-cycle-fast` instead of `omarchy-menu-cycle`:
-
-    hl.unbind("SUPER + ESCAPE")
-    o.bind("SUPER + ESCAPE", "Sleep fast (cycle)",
-      "$HOME/.config/omarchy/plugins/sleep-fast/omarchy-menu-cycle-fast",
-      { repeating = true })
-    o.bind("SUPER + ESCAPE", "Sleep fast — arm countdown",
-      "$HOME/.config/omarchy/plugins/sleep-fast/omarchy-menu-cycle-fast release",
-      { release = true })
-
-Requires `gcc` and `make` (preinstalled on Omarchy). Without this step the
-bash helper keeps working everywhere.
 
 ## Remove
 
