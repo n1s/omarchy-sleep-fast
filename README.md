@@ -7,7 +7,7 @@ own after a short countdown. No need to confirm or reach for the Enter key.
 
 ## Install
 
-    omarchy plugin add https://github.com/YOURNAME/omarchy-sleep-fast.git --enable
+    omarchy plugin add https://github.com/n1s/omarchy-sleep-fast.git --enable
 
 Pick a helper flavor — the keybindings below take one of two paths:
 
